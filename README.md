@@ -1,10 +1,10 @@
 # MaratonaDiscovery
 
 # Revisão HTML
-  [] O Guia estelar HML
+  [] O Guia estelar HTML
   [] HTML que faz sentido pra todos
 # Revisão CSS
-  [] O Guia estelar HML
+  [] O Guia estelar HTML
   [] Nem tudo são pixels
   [] Uma caixa detro da outra
   [] App bonito até nos textos 
