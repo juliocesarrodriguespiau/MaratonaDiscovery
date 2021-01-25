@@ -14,7 +14,7 @@
     [] Visualizando a comunicação
   [] 2. Conceitos (com exceção das aulas de proxy) 
   [] 3. URI (com exceção das aulas de URN)
-### Preparaçaõ para próxima aula ###
+### Preparação para próxima aula ###
 *HTML
   [] Posso ver e ouvir o HTML
   [] Formulários de outro Planeta
