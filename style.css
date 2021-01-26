@@ -10,6 +10,10 @@
     box-sizing: border-box;
 }
 
+html {
+    font-size: 93.75%;
+}
+
 body {
     background: #f0f2f5;
     font-family: 'poppins', sans-serif  ;
@@ -155,10 +159,25 @@ td.income {
 td.expense {
     color: #e92929;
 }
+
 /*=========== Footer ==========*/
 footer {
     text-align: center;
     padding: 4rem 0 2rem;
     color: var(--dark-blue);
     opacity: 0.6;
+}
+
+/*=========== Responsive ==========*/
+@media (min-width: 800px) {
+    html {
+        font-size: 87.5%;
+    }
+
+    #balance {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 2rem;
+    }
+    
 }
