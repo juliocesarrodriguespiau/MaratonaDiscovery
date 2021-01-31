@@ -167,8 +167,7 @@ const Form = {
     formatValues() {
         let { description, amount, date } = Form.getValues()
 
-        amount 
-
+        amount = Utils.formatAmount(amount)
     },
 
     submit(event) {
