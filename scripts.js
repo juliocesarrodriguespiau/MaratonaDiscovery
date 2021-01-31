@@ -7,6 +7,7 @@ const Modal = {
             .classList
             .add('active')
     },
+
     close(){
         // Fechar modal
         // Remover a classe active do modal
@@ -36,33 +37,131 @@ const transactions = [
         amount: -20000,
         date: '23/01/2021',
     },
+    {
+        id: 4,
+        description: 'App',
+        amount: 200000,
+        date: '31/01/2021',
+    },
 ]
 
 const Transaction = {
+    all: transactions,
+
+    add(transaction){
+        Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
     incomes(){
-        // somar as entradas
+        let income = 0;
+        Transaction.all.forEach(transaction => {
+            if( transaction.amount > 0 ){
+                income += transaction.amount;
+            }
+        })
+        return income;
     },
+
     expenses(){
-        // somar as saídas
+        let expenses = 0;
+        Transaction.all.forEach(transaction => {
+            if( transaction.amount < 0 ){
+                expenses += transaction.amount;
+            }
+        })
+        return expenses;
     },
+    
     total(){
-        // entradas - saídas
+        return Transaction.incomes() + Transaction.expenses()
     }
 }
 
 // Substituir os dados do HTML com os dados do JavaScript
 const DOM = {
-    innerHTMLTransaction() {
+    transactionContainer: document.querySelector('#data-table tbody'),
+
+    addTransaction(transaction, index){
+        const tr = document.createElement('tr')
+        tr.innerHTML = DOM.innerHTMLTransaction(transaction)
+        
+        DOM.transactionContainer.appendChild(tr)
+    },
+
+    innerHTMLTransaction(transaction) {
+        const CSSclass = transaction.amount > 0 ? "income" : "expense"
+
+        const amount = Utils.formatCurrency(transaction.amount)
 
         const html = `
-        <tr>
-            <td class="description">Luz</td>
-            <td class="expense">- R$ 500,00</td>
-            <td class="date">23/01/2021</td>
+            <td class="description">${transaction.description}</td>
+            <td class=${CSSclass}>${amount}</td>
+            <td class="date">${transaction.date}</td>
             <td>                        
                 <img src="./assets/minus.svg" alt="Remover Transação">
             </td>
-        </tr>
         `
+        return html
+    },
+
+    updateBalance() {
+        document
+            .getElementById('incomeDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.incomes()) 
+        document
+            .getElementById('expenseDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.expenses())
+        document
+            .getElementById('totalDisplay')
+            .innerHTML = Utils.formatCurrency(Transaction.total())
+    },
+
+    clearTransactions() {
+        DOM.transactionContainer.innerHTML = ""
     }
 }
+
+const Utils = {
+    formatCurrency(value){
+        const signal = Number(value) < 0 ? "-" : ""
+        
+        value = String(value).replace(/\D/g, "")
+
+        value = Number(value) / 100
+
+        value = value.toLocaleString("pt-BR", {
+            style: "currency",
+            currency: "BRL"
+        })
+
+        return signal + value
+    }
+}
+
+const App = {
+    init() {
+        
+        Transaction.all.forEach(transaction => {
+            DOM.addTransaction(transaction)
+        })
+        
+        DOM.updateBalance()
+    
+    },
+
+    reload() {
+        DOM.clearTransactions()
+        App.init()
+    },
+}
+
+App.init()
+
+Transaction.add({
+    id: 39,
+    description: 'Alowwww',
+    amount: 200,
+    date: '31/01/2021'
+})
