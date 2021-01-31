@@ -17,39 +17,39 @@ const Modal = {
             .remove('active')
     }
 }
-
-const transactions = [
-    {
-        id: 1,
-        description: 'Luz',
-        amount: -50000,
-        date: '23/01/2021',
-    },
-    {
-        id: 2,
-        description: 'Criação WebSite',
-        amount: 500000,
-        date: '23/01/2021',
-    },
-    {
-        id: 3,
-        description: 'Internet',
-        amount: -20000,
-        date: '23/01/2021',
-    },
-    {
-        id: 4,
-        description: 'App',
-        amount: 200000,
-        date: '31/01/2021',
-    },
-]
-
+//
 const Transaction = {
-    all: transactions,
+    all: [
+        {
+            description: 'Luz',
+            amount: -50000,
+            date: '23/01/2021',
+        },
+        {
+            description: 'Criação WebSite',
+            amount: 500000,
+            date: '23/01/2021',
+        },
+        {
+            description: 'Internet',
+            amount: -20000,
+            date: '23/01/2021',
+        },
+        {
+            description: 'App',
+            amount: 200000,
+            date: '31/01/2021',
+        },
+    ],
 
     add(transaction){
         Transaction.all.push(transaction)
+
+        App.reload()
+    },
+
+    remove(index){
+        Transaction.all.splice(index, 1)
 
         App.reload()
     },
@@ -78,7 +78,6 @@ const Transaction = {
         return Transaction.incomes() + Transaction.expenses()
     }
 }
-
 // Substituir os dados do HTML com os dados do JavaScript
 const DOM = {
     transactionContainer: document.querySelector('#data-table tbody'),
@@ -124,6 +123,10 @@ const DOM = {
 }
 
 const Utils = {
+    formatAmount(value){
+        console.log(value)
+    },
+
     formatCurrency(value){
         const signal = Number(value) < 0 ? "-" : ""
         
@@ -137,6 +140,60 @@ const Utils = {
         })
 
         return signal + value
+    }
+}
+
+const Form = {
+    description: document.querySelector('input#description'),
+    amount: document.querySelector('input#amount'),
+    date: document.querySelector('input#date'),
+
+    getValues() {
+        return {
+            description: Form.description.value,
+            amount: Form.amount.value,
+            date: Form.date.value
+        }
+    },
+
+    validateFields() {
+        const { description, amount, date } = Form.getValues()
+
+        if ( description.trim() === "" || amount.trim() === "" || date.trim() === "") {
+            throw new Error("Por favor, preencha todos os campos!")
+        }
+    },
+
+    formatValues() {
+        let { description, amount, date } = Form.getValues()
+
+        amount 
+
+    },
+
+    submit(event) {
+        event.preventDefault()
+
+        try {
+                    
+        //validar se todas as infos preenchidas
+        //Form.validateFields()
+
+        //Formatar os dados para salvar
+        Form.formatValues()
+
+        //Salvar
+
+        //Apagar os dados do formulário
+
+        //fechar modal
+
+        //atualizar a aplicação
+            
+        } catch (error) {
+           alert(error.message)
+        }
+
     }
 }
 
@@ -158,10 +215,3 @@ const App = {
 }
 
 App.init()
-
-Transaction.add({
-    id: 39,
-    description: 'Alowwww',
-    amount: 200,
-    date: '31/01/2021'
-})
