@@ -174,9 +174,9 @@ const Form = {
         }
     },
 
-    saveTransaction(transaction) {
-        Transaction.add(transaction)
-    },
+    // saveTransaction(transaction) {
+    //     Transaction.add(transaction)
+    // },
 
     clearFields() {
         Form.description.value = ""
@@ -196,13 +196,17 @@ const Form = {
         const transaction = Form.formatValues()
 
         //Salvar
-        Form.saveTransaction(transaction)
+        //Form.saveTransaction(transaction)
+        Transaction.add(transaction)
 
         //Apagar os dados do formulário
         Form.clearFields()
 
         //fechar modal
         Modal.close()
+
+        //recarregar
+        //App.reload()
             
         } catch (error) {
            alert(error.message)
